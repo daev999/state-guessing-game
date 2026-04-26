@@ -1,28 +1,28 @@
 import turtle
 import pandas
 
-data = pandas.read_csv("50_states.csv")
-states = data["state"].tolist()
-
-user_states = []
-
 screen = turtle.Screen()
 screen.title("U.S. States Game")
 image = "blank_states_img.gif"
 screen.addshape(image)
 turtle.shape(image)
 
-while True:
-    answer_state = screen.textinput(title="Guess the state", prompt="What's another state's name?")
+data = pandas.read_csv("50_states.csv")
+all_states = data["state"].tolist()
+guessed_states = []
 
-    if answer_state:   # ← safety check
-        user_answer = answer_state.title()
+while len(guessed_states) < 50:
+    answer_state = screen.textinput(title=f"{len(guessed_states)}/50 States Correct",
+                                    prompt="What's another state's name?").title()
 
-        if user_answer in states:
-            print("Correct")
-        
+    if answer_state in all_states:   # ← safety check
+        guessed_states.append(answer_state)
+        t = turtle.Turtle()
+        t.hideturtle()
+        t.penup()
+        state_data = data[data.state == answer_state]
+        t.goto(state_data.x.item(), state_data.y.item())
+        t.write(answer_state)
 
-
-
-
+screen.exitonclick()
 
