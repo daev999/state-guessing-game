@@ -12,9 +12,13 @@ all_states = data["state"].tolist()
 guessed_states = []
 
 while len(guessed_states) < 50:
-    answer_state = screen.textinput(title=f"{len(guessed_states)}/50 States Correct",
-                                    prompt="What's another state's name?").title()
-    if answer_state == "Exit":
+    user_answer = screen.textinput(title=f"{len(guessed_states)}/50 States Correct",
+                                    prompt="What's another state's name?")
+    if user_answer is None:
+        break
+    user_answer = user_answer.title()
+
+    if user_answer == "Exit":
         missing_states = []
         for state in all_states:
             if state not in guessed_states:
@@ -22,11 +26,14 @@ while len(guessed_states) < 50:
         new_data = pandas.DataFrame(missing_states)
         new_data.to_csv("states_to_learn.csv")
         break
-    if answer_state in all_states:
-        guessed_states.append(answer_state)
+
+    if user_answer in all_states and user_answer not in guessed_states:
+        guessed_states.append(user_answer)
         t = turtle.Turtle()
         t.hideturtle()
         t.penup()
-        state_data = data[data.state == answer_state]
+        state_data = data[data.state == user_answer]
         t.goto(state_data.x.item(), state_data.y.item())
-        t.write(answer_state)
+        t.write(user_answer)
+
+
