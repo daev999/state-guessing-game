@@ -24,3 +24,32 @@ Run: main.py
 
 🔮 Future Improvements
 🌍 Add support for other countries (Nigeria version coming 👀)
+
+🧠 List Comprehension — Understanding new_item
+
+new_item is simply what you want inside your final list.
+
+💡 Key Idea
+
+Think about the result first, not the syntax.
+
+🧠 Example
+
+If you want:
+
+missing_states = ["Texas", "Ohio", ...]
+
+Then:
+
+👉🏾 new_item = state
+
+🎯 Code
+
+[state for state in all_states if state not in guessed_states]
+
+✅ Simple Rule
+No change → new_item = item
+Change needed → new_item = modified item
+🚀 Takeaway
+
+Focus on what you want in the list — that defines new_item.
